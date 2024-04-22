@@ -1,0 +1,13 @@
+//How to setup postgres backend database
+
+1. Install postgresSQL 
+
+2. Set master password and password to connect to server
+
+3. Connect to server
+
+4. Retrieve PostgreSQL client connection details and enter into backend.js file 
+
+5. Resolve any CORS issues 
+
+

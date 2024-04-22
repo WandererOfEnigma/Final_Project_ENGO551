@@ -1,0 +1,12 @@
+//This is an example of how message should be sent on Web Server to update position of an asset 
+//For assets 
+{
+    "id": "asset1",
+    "coordinates": [-114.05, 51.05]
+}
+
+//For incidents 
+{
+  "id": "incident1",
+  "coordinates": [-114.09, 51.08],
+}

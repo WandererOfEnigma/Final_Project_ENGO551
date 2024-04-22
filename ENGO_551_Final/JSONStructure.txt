@@ -1,0 +1,7 @@
+//This is an example of how json file should be structured to periodically update coordinates 
+[
+  { "id": "asset1", "coordinates": [-114.05, 51.05] },
+  { "id": "asset2", "coordinates": [-114.06, 51.03] },
+  { "id": "asset3", "coordinates": [-114.07, 51.06] },
+  { "id": "asset4", "coordinates": [-114.08, 51.07] }
+]

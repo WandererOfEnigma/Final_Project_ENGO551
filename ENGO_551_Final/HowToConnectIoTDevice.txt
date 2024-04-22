@@ -1,0 +1,29 @@
+//How to connect IoT device to web socket server 
+
+First method 
+
+1. Open terminal 
+
+2. cd to your project folder
+
+3. npm install ws
+
+3. Run the WebSocket Server node websocket_server.js
+
+5. Open a second terminal window
+
+6. cd to your project folder
+
+7. Run the WebSocket Client node client.js 
+
+Second method 
+
+1. Open terminal
+
+2. cd to your project folder
+
+3. npm install ws
+
+4. Set up your server by running the WebSocket Server node websocket_server.js 
+
+5. Open the client_browser.html file in your web browser 

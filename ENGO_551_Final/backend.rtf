@@ -1,0 +1,75 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 const \{ Client \} = require('pg');\
+\
+// Create a new PostgreSQL client\
+const client = new Client(\{\
+    user: '', // Your PostgreSQL username\
+    host: '', // Your PostgreSQL host\
+    database: '', // Your PostgreSQL database name\
+    password: '', // Your PostgreSQL password\
+    port:, // Your PostgreSQL port\
+\});\
+\
+// Connect to the database\
+client.connect()\
+    .then(() => \{\
+        console.log('Connected to PostgreSQL database');\
+        // Call function to create table if not exists\
+        createTableIfNotExists();\
+    \})\
+    .catch(err => console.error('Error connecting to PostgreSQL database', err));\
+\
+// Function to create table if not exists\
+async function createTableIfNotExists() \{\
+    try \{\
+        // Create table for incidents if not exists\
+        const createIncidentsTableQuery = `\
+            CREATE TABLE IF NOT EXISTS incidents (\
+                id SERIAL PRIMARY KEY,\
+                coordinates POINT,\
+                responder VARCHAR(255),\
+                response_time INTEGER\
+            )\
+        `;\
+        await client.query(createIncidentsTableQuery);\
+        console.log('Incidents table created or already exists');\
+    \} catch (error) \{\
+        console.error('Error creating table', error);\
+    \}\
+\}\
+\
+// Express app setup\
+const express = require('express');\
+const bodyParser = require('body-parser');\
+const app = express();\
+const port = 3000;\
+\
+// Parse JSON bodies\
+app.use(bodyParser.json());\
+\
+// Route to handle incident report\
+app.post('/report-incident', async (req, res) => \{\
+    const \{ coordinates, responder, responseTime \} = req.body;\
+    try \{\
+        // Insert incident data into the database\
+        const insertIncidentQuery = 'INSERT INTO incidents (coordinates, responder, response_time) VALUES ($1, $2, $3)';\
+        await client.query(insertIncidentQuery, [coordinates, responder, responseTime]);\
+        console.log('Incident data inserted into database successfully');\
+        res.sendStatus(200);\
+    \} catch (error) \{\
+        console.error('Error inserting incident data into database', error);\
+        res.sendStatus(500);\
+    \}\
+\});\
+\
+// Start the server\
+app.listen(port, () => \{\
+    console.log(`Server is running on http://localhost:$\{port\}`);\
+\});\
+}
